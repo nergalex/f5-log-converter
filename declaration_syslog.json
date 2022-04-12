@@ -1,0 +1,22 @@
+{
+    "f5xc_tenant": {
+        "api_key": "",
+        "name": "f5-emea-ent",
+        "namespaces": [
+            {
+                "event_filter": {
+                    "sec_event_type": "waf_sec_event"
+                },
+                "name": "al-dacosta"
+            }
+        ]
+    },
+    "logcollector": {
+        "syslog": [
+            {
+                "ip_address": "127.100.0.8",
+                "port": 5140
+            }
+        ]
+    }
+}

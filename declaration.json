@@ -1,0 +1,43 @@
+{
+    "f5xc_tenant":
+    {
+        "api_key": "=",
+        "name": "f5-emea-ent",
+        "namespaces":
+        [
+            {
+                "event_filter":
+                {
+                    "sec_event_type": "waf_sec_event"
+                },
+                "name": "al-dacosta",
+                "event_start_time":
+                {
+                    "year": 2022,
+                    "month": 4,
+                    "day": 11,
+                    "hour": 15,
+                    "minute": 0
+                }
+            }
+        ]
+    },
+    "logcollector":
+    {
+        "http":
+        [
+            {
+                "host": "52.177.94.15",
+                "port": 8888,
+                "path": "/debug.test"
+            }
+        ],
+        "syslog":
+        [
+            {
+                "ip_address": "52.177.94.15",
+                "port": 5140
+            }
+        ]
+    }
+}
