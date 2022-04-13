@@ -19,6 +19,7 @@ RUN apt-get update \
 ############################################# Create App's virtual environment #############################################
 ARG FAAS_APP_NAME=logstream-xc
 ARG GITHUB_BASE_REF=master
+ARG GITHUB_REPOSITORY=${GITHUB_REPOSITORY}
 
 RUN mkdir -p /etc/faas-apps/${FAAS_APP_NAME}/
 ADD https://api.github.com/repos/${GITHUB_REPOSITORY}/git/refs/heads/${GITHUB_BASE_REF} version.json
