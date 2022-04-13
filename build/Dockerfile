@@ -28,9 +28,9 @@ RUN git clone -b ${GITHUB_BASE_REF} https://github.com/${GITHUB_REPOSITORY}.git 
 
 ############################################# Prepare Unit #############################################
 
-COPY ./*.pem  /docker-entrypoint.d/
-COPY ./*.json /docker-entrypoint.d/
-COPY ./*.sh   /docker-entrypoint.d/
+COPY ./build/*.pem  /docker-entrypoint.d/
+COPY ./build/*.json /docker-entrypoint.d/
+COPY ./build/*.sh   /docker-entrypoint.d/
 RUN chown unit:unit /docker-entrypoint.d/*.pem \
     && chown unit:unit /docker-entrypoint.d/*.json \
     && chown unit:unit /docker-entrypoint.d/*.sh \
