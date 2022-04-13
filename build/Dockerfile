@@ -17,8 +17,8 @@ RUN apt-get update \
     && python3 -m venv /etc/faas-apps/venv
 
 ############################################# Create App's virtual environment #############################################
-ARG FAAS_APP_NAME=logstream-xc
-ARG GITHUB_BASE_REF=master
+#ARG FAAS_APP_NAME=logstream-xc
+#ARG GITHUB_BASE_REF=master
 
 RUN mkdir -p /etc/faas-apps/${FAAS_APP_NAME}/
 ADD https://api.github.com/repos/${GITHUB_REPOSITORY}/git/refs/heads/${GITHUB_BASE_REF} version.json
