@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Deploy logstream on a VM
 
 on:
   push:
@@ -15,4 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: cd ./build && docker build . --file Dockerfile --tag logstream-xc:$(date +%s)
+      run: docker build . --file ./buildDockerfile --tag logstream-xc:$(date +%s) --build-arg GITHUB_REPOSITORY --build-arg GITHUB_BASE_REF
+#    - name: Launch Logstream image
+#      run: docker run logstream-xc:$(date +%s)

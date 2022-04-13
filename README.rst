@@ -96,31 +96,47 @@ If you encounter an issue, follow this `article <https://www.digitalocean.com/co
 Deploy a github runner agent
 **************************************************
 
-- Fork this github repository by clicking on top left button
+- Fork this github repository by clicking on top left button ``Fork``
+- In your github repository, click on ``Settings``
+- click on ``Actions``
+- click on ``Runners``
+- click on ``New self-hosted runner``
+- click on ``Linux``
+- follow the guide to deploy a github runner agent on your VM
+    - during registration prompt, enter
 
-:kbd:`Fork`
+.. code:: bash
 
-- In your github repository, click on
+    # Runner Registration
+    Enter the name of the runner group to add this runner to: [press Enter for Default]
+    Enter the name of runner: logstream-xc
+    Enter any additional labels (ex. label-1,label-2): ubuntu-latest
 
-:kbd:`Settings`
+    # Runner settings
+    Enter name of work folder: [press Enter for _work]
 
-- click on
+Modify github workflow
+**************************************************
+In your github repository, do:
 
-:kbd:`Actions`
+- click on ``Actions``
+- click on ``Docker Image CI``
+- click on ``docker-image.yml``
 
-- click on
+- Edit ``./build/Dockerfile`` and set variables bellow with info of your github repo
 
-:kbd:`Runners`
+.. code:: bash
 
-- click on
+    ARG GITHUB_USER=nergalex
+    ARG GITHUB_REPO=f5-xc-logstream
 
-:kbd:`New self-hosted runner`
+- Edit ``./build/Dockerfile`` and set variables bellow with info of your github repo
 
-- click on
+.. code:: bash
 
-:kbd:`Linux`
+    ARG GITHUB_USER=nergalex
+    ARG GITHUB_REPO=f5-xc-logstream
 
-- follow the opened guide to deploy a github runner agent on your VM
 
 Configure
 =================================================
