@@ -17,7 +17,7 @@ jobs:
         run: echo "--build-arg GITHUB_REPOSITORY=${{ github.repository }}"
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker build . --file ./build/Dockerfile --tag logstream-xc:$(date +%s) --build-arg TEST=test
+        run: docker build . --file ./build/Dockerfile --build-arg GITHUB_REPOSITORY=${{ github.repository }} --tag logstream-xc:$(date +%s) --no-cache
 #      - name: Launch Logstream image
 #        run: docker run logstream-xc:$(date +%s)
 
