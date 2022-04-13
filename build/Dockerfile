@@ -12,7 +12,7 @@ RUN apt-get update \
     && mkdir -p /var/log/unit/ \
     && touch /var/log/unit/access.log \
     && chown -R unit:0 /var/log/unit/ \
-    && mkdir /etc/faas-apps/ \
+    && mkdir -p /etc/faas-apps/${FAAS_APP_NAME} \
     && chown -R unit:unit /etc/faas-apps/ \
     && python3 -m venv /etc/faas-apps/venv
 
