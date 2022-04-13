@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file ./build/Dockerfile --tag logstream-xc:$(date +%s) --build-arg GITHUB_REPOSITORY=${{ github.repository }} --build-arg GITHUB_BASE_REF=${{ github.base.ref }}
+      run: docker build . --file ./build/Dockerfile --tag logstream-xc:$(date +%s) --build-arg GITHUB_REPOSITORY=$GITHUB_REPOSITORY --build-arg GITHUB_BASE_REF=$GITHUB_BASE_REF
 #    - name: Launch Logstream image
 #      run: docker run logstream-xc:$(date +%s)
 
