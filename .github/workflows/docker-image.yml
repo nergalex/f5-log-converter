@@ -1,6 +1,5 @@
 name: Deploy logstream on a VM
-#env:
-#  GITHUB_BASE_REF: master
+
 on:
   push:
     branches: [ master ]
@@ -15,10 +14,10 @@ jobs:
 
     steps:
       - name: debug
-        run: echo "--build-arg GITHUB_REPOSITORY=${{ github.repository }} --build-arg GITHUB_BASE_REF=${{ github.base.ref }}"
-#      - uses: actions/checkout@v3
-#      - name: Build the Docker image
-#        run: docker build . --file ./build/Dockerfile --tag logstream-xc:$(date +%s) --build-arg GITHUB_REPOSITORY=${{ github.repository }} --build-arg GITHUB_BASE_REF=${{ github.base.ref }}
+        run: echo "--build-arg GITHUB_REPOSITORY=${{ github.repository }}"
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: docker build . --file ./build/Dockerfile --tag logstream-xc:$(date +%s) --build-arg GITHUB_REPOSITORY=${{ github.repository }}
 #      - name: Launch Logstream image
 #        run: docker run logstream-xc:$(date +%s)
 
