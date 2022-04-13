@@ -19,12 +19,14 @@ RUN apt-get update \
 ############################################# Create App's virtual environment #############################################
 ARG FAAS_APP_NAME=logstream-xc
 ARG GITHUB_BASE_REF=master
-ARG GITHUB_REPOSITORY=${GITHUB_REPOSITORY}
+ARG GITHUB_REPOSITORY
 
 RUN mkdir -p /etc/faas-apps/${FAAS_APP_NAME}/
 ADD https://api.github.com/repos/${GITHUB_REPOSITORY}/git/refs/heads/${GITHUB_BASE_REF} version.json
 RUN git clone -b ${GITHUB_BASE_REF} https://github.com/${GITHUB_REPOSITORY}.git /etc/faas-apps/${FAAS_APP_NAME} \
     && /etc/faas-apps/venv/bin/pip install -r /etc/faas-apps/${FAAS_APP_NAME}/requirements.txt
+RUN touch /etc/faas-apps/logstream-xc/logstream-app.log \
+    chown unit:unit /etc/faas-apps/logstream-xc/logstream-app.log
 
 ############################################# Prepare Unit #############################################
 
