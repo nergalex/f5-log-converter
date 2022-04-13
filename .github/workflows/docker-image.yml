@@ -1,4 +1,4 @@
-name: Deploy logstream on a VM
+name: Deploy logstream on a VM1
 
 on:
   push:
