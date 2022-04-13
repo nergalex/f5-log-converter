@@ -21,7 +21,7 @@ ARG FAAS_APP_NAME=logstream-xc
 ARG GITHUB_BASE_REF=master
 
 RUN mkdir -p /etc/faas-apps/${FAAS_APP_NAME}/
-ADD https://api.github.com/repos/${GITHUB_REPOSITORY}/git/refs/heads/${GITHUB_BASE_REF} version.json
+ADD https://api.github.com/repos/${TEST}/git/refs/heads/${GITHUB_BASE_REF} version.json
 RUN git clone -b ${GITHUB_BRANCH} https://github.com/${GITHUB_REPOSITORY}.git /etc/faas-apps/${FAAS_APP_NAME} \
     && /etc/faas-apps/venv/bin/pip install -r /etc/faas-apps/${FAAS_APP_NAME}/requirements.txt
 
