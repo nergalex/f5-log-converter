@@ -658,4 +658,11 @@ This guide describes how to deploy a Log Collector using Fluentd
     tail -f -n 1 /var/log/td-agent/td-agent.log &
     curl -X POST -d 'json={"json":"message"}' http://localhost:8888/debug.test
 
+References
+####################################################
+- Source code: `here <https://github.com/nergalex/f5-xc-logstream>`_
+
+
+
+
 
