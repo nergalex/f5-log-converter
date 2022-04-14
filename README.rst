@@ -37,6 +37,7 @@ Bootstrap
     - sku: 21_10-gen2
     - version: latest
 
+
 Install docker
 **************************************************
 
