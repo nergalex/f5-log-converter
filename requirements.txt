@@ -1,6 +1,0 @@
-requests
-flask
-flask_restful
-flasgger
-pytz
-xmltodict

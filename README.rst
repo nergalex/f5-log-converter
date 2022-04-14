@@ -93,154 +93,34 @@ Install docker
 
 If you encounter an issue, follow this `article <https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket>`_
 
-Deploy a github runner agent
+Prepare configuration
 **************************************************
 
-- Fork this github repository by clicking on top left button ``Fork``
-- In your github repository, click on ``Settings``
-- click on ``Actions``
-- click on ``Runners``
-- click on ``New self-hosted runner``
-- click on ``Linux``
-- follow the guide to deploy a github runner agent on your VM
-    - during registration prompt, enter
-
-.. code:: bash
-
-    # Runner Registration
-    Enter the name of the runner group to add this runner to: [press Enter for Default]
-    Enter the name of runner: logstream-xc
-    Enter any additional labels (ex. label-1,label-2): ubuntu-latest
-
-    # Runner settings
-    Enter name of work folder: [press Enter for _work]
-
-Modify github workflow
+Deploy image
 **************************************************
-In your github repository, do:
-
-- click on ``Actions``
-- click on ``Docker Image CI``
-- click on ``docker-image.yml``
-
-- Edit ``./build/Dockerfile`` and set variables bellow with info of your github repo
-
-.. code:: bash
-
-    ARG GITHUB_USER=nergalex
-    ARG GITHUB_REPO=f5-xc-logstream
-
-- Edit ``./build/Dockerfile`` and set variables bellow with info of your github repo
-
-.. code:: bash
-
-    ARG GITHUB_USER=nergalex
-    ARG GITHUB_REPO=f5-xc-logstream
-
-
-Configure
-=================================================
-Different ways to configure LogConverter.
-
-Regional Edge
-********************
-
-- ``Distributed Apps`` > ``Virtual K8S`` > ``myVirtualCluster``
-
-Modify ``declaration.json`` in ``workload``:
-
-- ``workloads`` > ``logstream-xc`` > ``...`` > ``Manage configuration`` > ``Edit Configuration``
-- ``Type of Workload`` > ``Service``  > ``Edit configuration``
-- ``Configuration Parameters`` > ``declaration.json`` > ``...``  > ``Edit``
-- ``File`` > ``Edit configuration``
-- ``Data``: modify in ASCII view or in JSON view
-- ``Apply`` for each opened screens
-- ``Save and Exit`` for each opened screens
-
-Start a new ``POD``:
-
-- ``PODs`` > ``logstream-xc`` > ``...`` > ``Delete``
-
-Local declaration file
-********************
-Define an environment variable:
-- key: ``declaration_file_path``
-- value: absolute path to a declaration file or a relative path in wsgi folder
-
-By default, if a *declaration* environment variable ``declaration_file_path`` is absent,
-LogConverter will start using ``declaration.json`` present in local folder.
-
-Local log file
-********************
-Define an environment variable:
-- key: ``log_file_path``
-- value: absolute path to a log file or a relative path in wsgi folder
-
-By default, if a *declaration* environment variable ``log_file_path`` is absent,
-LogConverter will start using ``LogConverter.log`` present in local folder.
-
-API
-***************
-If *declaration* file is absent, LogConverter will NOT start its engine.
-Use LogConverter API to configure it and then to start its engine.
-
-API allows you to:
-- `declare` endpoint to configure entirely LogConverter. Refer to API Dev Portal for parameter and allowed values.
-- `action` endpoint to start/stop the engine.
-- `declare` anytime you need to reconfigure LogConverter and launch `restart` `action` to apply the new configuration.
-- Note that the last `declaration` is saved locally
-
-
-Deployment on a VM
-==================================================
-
-
-Deployment on a F5 XC RE
-==================================================
-
-
 
 
 Administration guide
 ##################################################
-Configuration of LogConverter depends on Deployment model
-
-Declaration
-==================================================
-VM
-**************************************************
-Define an environment variable:
-- key: ``declaration_file_path``
-- value: absolute path to a declaration file or a relative path in wsgi folder
-
-By default, if a *declaration* environment variable ``declaration_file_path`` is absent,
-LogConverter will start using ``declaration.json`` present in local folder.
-
-API
-***************
-If *declaration* file is absent, LogConverter will NOT start its engine.
-Use LogConverter API to configure it and then to start its engine.
-
-API allows you to:
-- `declare` endpoint to configure entirely LogConverter. Refer to API Dev Portal for parameter and allowed values.
-- `action` endpoint to start/stop the engine.
-- `declare` anytime you need to reconfigure LogConverter and launch `restart` `action` to apply the new configuration.
-- Note that the last `declaration` is saved locally
+Specification of LogConverter are stored as a declaration in JSON format.
 
 API reference
 ==================================================
-API Dev Portal is available on your LogConverter instance via ``/apidocs/``
+- OpenAPI specification `here <https://github.com/nergalex/f5-log-converter/blob/master/swagger.json>`_
+- Log on `swaggerhub <https://app.swaggerhub.com/>`_
+- Click ``on Create new`` > ``Import and document API``
+    - URL: https://raw.githubusercontent.com/nergalex/f5-log-converter/master/swagger.json
+- Browse API endpoint ``POST /declare``
+- Click on Model
+- See expected key/value to define in a Declaration
 
-API reference can be downloaded `here <https://github.com/nergalex/f5-xc-LogConverter/blob/master/swagger.json>`_
+.. figure:: _picture/swaggerhub.png
 
-A Postman collection is available `here <https://github.com/nergalex/f5-xc-LogConverter/blob/master/LogConverter-F5_XC.postman_collection.json>`_
-
-Example of Declaration
+Example
+==================================================
+Simple
 **************************************************
-Specification of LogConverter are stored as a declaration in JSON format.
-Reference schema is available in the description of ``/declare`` API endpoint.
-
-Example of a declaration:
+A declaration of one syslog server
 
 .. code:: json
 
@@ -253,7 +133,41 @@ Example of a declaration:
                     "event_filter": {
                         "sec_event_type": "waf_sec_event"
                     },
-                    "name": "al-dacosta",
+                    "name": "aNameSpace"
+                }
+            ]
+        },
+        "logcollector": {
+            "syslog": [
+                {
+                    "ip_address": "127.100.0.8",
+                    "port": 5140
+                }
+            ]
+        }
+    }
+
+
+Advanced
+**************************************************
+A declaration of one syslog server:
+
+    - one Syslog server
+    - one HTTP server
+    - A starting date to retrieve logs. Date must be less than 24h before now
+
+.. code:: json
+
+    {
+        "f5xc_tenant": {
+            "api_key": "XXXXXXXXXXXXX",
+            "name": "f5-emea-ent",
+            "namespaces": [
+                {
+                    "event_filter": {
+                        "sec_event_type": "waf_sec_event"
+                    },
+                    "name": "aNameSpace",
                     "event_start_time": {
                         "year": 2022,
                         "month": 4,
@@ -280,43 +194,6 @@ Example of a declaration:
             ]
         }
     }
-
-
-F5 XC Regional Edge
-**************************************************
-- ``Distributed Apps`` > ``Virtual K8S`` > ``myVirtualCluster``
-
-Modify ``declaration.json`` in ``workload``:
-
-- ``workloads`` > ``logstream-xc`` > ``...`` > ``Manage configuration`` > ``Edit Configuration``
-- ``Type of Workload`` > ``Service``  > ``Edit configuration``
-- ``Configuration Parameters`` > ``declaration.json`` > ``...``  > ``Edit``
-- ``File`` > ``Edit configuration``
-- ``Data``: modify in ASCII view or in JSON view
-- ``Apply`` for each opened screens
-- ``Save and Exit`` for each opened screens
-
-Start a new ``POD``:
-
-- ``PODs`` > ``logstream-xc`` > ``...`` > ``Delete``
-
-Log access
-==================================================
-VM
-**************************************************
-Define an environment variable:
-- key: ``log_file_path``
-- value: absolute path to a log file or a relative path in wsgi folder
-
-By default, if a *declaration* environment variable ``log_file_path`` is absent,
-LogConverter will start using ``LogConverter.log`` present in local folder.
-
-
-F5 XC Regional Edge
-**************************************************
-
-
-
 
 Log format
 ==================================================
@@ -636,15 +513,26 @@ OUTPUT - Syslog
 Troubleshooting Guide
 ####################################################
 
-View TLS configuration on Unit:
+Docker
+==================================================
 
-:kbd:`curl http://localhost:8000/certificates/logstream-xc/chain/0`
+View container running in docker:
 
-View App configuration on Unit:
+:kbd:`docker ps`
 
-:kbd:`curl http://localhost:8000/config/`
+View containers:
 
-Virtual Machine
+:kbd:`docker ps -all`
+
+Restart a container:
+
+:kbd:`docker restart <container_id>`
+
+Open a shell in a container:
+
+:kbd:`docker exec -it <container_id> bash`
+
+Customer Edge | Container hosted in a VM/docker
 ==================================================
 
 View audit log:
@@ -659,10 +547,16 @@ View app log:
 
 :kbd:`tail -f /etc/faas-apps/logstream-xc/LogConverter.log`
 
-Container in F5 XC Regional Edge
-==================================================
+View TLS configuration on Unit:
 
-Understand NGINX Unit startup: `here <https://unit.nginx.org/howto/source/#startup-and-shutdown>`_
+:kbd:`curl http://localhost:8000/certificates/logstream-xc/chain/0`
+
+View App configuration on Unit:
+
+:kbd:`curl http://localhost:8000/config/`
+
+Regional Edge | Container hosted in a F5 XC POP
+==================================================
 
 View startup log:
 
@@ -684,7 +578,7 @@ View local configuration:
 
 :kbd:`cat /config/declaration.json`
 
-Remote Log Collector
+Server | Remote Log Collector
 ==================================================
 This guide describes how to deploy a Log Collector using Fluentd
 
@@ -744,11 +638,11 @@ This guide describes how to deploy a Log Collector using Fluentd
 
     systemctl start td-agent.service
 
-
-- Unit test
+- Verify configuration
 
 .. code:: bash
 
     tail -f -n 1 /var/log/td-agent/td-agent.log &
     curl -X POST -d 'json={"json":"message"}' http://localhost:8888/debug.test
+
 
