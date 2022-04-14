@@ -34,19 +34,15 @@ Customer Edge | Container hosted in a VM/docker
 
 Bootstrap
 **************************************************
-
 - Deploy a Linux VM. Example in Azure:
     - publisher: Canonical
     - offer: 0001-com-ubuntu-server-impish
     - sku: 21_10-gen2
     - version: latest
 
-
 Install docker
 **************************************************
-
 - Connect on your VM
-
 - Install docker by following `this guide <https://docs.docker.com/get-docker/>`_. Example:
     - `Ubuntu <https://docs.docker.com/engine/install/ubuntu/>`_
 
@@ -100,10 +96,22 @@ If you encounter an issue, follow this `article <https://www.digitalocean.com/co
 
 Prepare configuration
 **************************************************
+- Create a Declaration file based on specification defined in ``Administration guide``
 
 Deploy image
 **************************************************
+- Download image
 
+.. code:: json
+
+    docker pull registry.gitlab.com/nergalex/f5-xc-logstream/logstream-xc:ce
+
+- Create and run a container. Replace values in the command line:
+    - ``${{ env.LOCAL_DECLARATION }}``: absolute path to your declaration file
+
+.. code:: json
+
+    docker run -dit -h logstream-xc --restart=always --name=logstream-xc -p 8000:8000 -p 80:8080 -p 443:8443 -v ${{ env.LOCAL_DECLARATION }}:/etc/faas-apps/logstream-xc/declaration.json logstream-xc:ce
 
 Administration guide
 ##################################################
