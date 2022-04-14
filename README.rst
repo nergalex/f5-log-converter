@@ -26,8 +26,12 @@ No logs are stored. LogConverter receives logs and then PUSH them directly to re
 
 Deployment Guide
 ####################################################
-VM
+Regional Edge | Container hosted in a F5 XC POP
 ==================================================
+
+Customer Edge | Container hosted in a VM/docker
+==================================================
+
 Bootstrap
 **************************************************
 
