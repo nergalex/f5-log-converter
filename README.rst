@@ -33,8 +33,8 @@ Create the workload
 *******************
 
 - Create a vK8S in your namespace
-- In Workloads, create a new vK8S `workload`
-- Do not configure any setting, but click on `JSON` on the top 
+- In Workloads, create a new vK8S ```workload```
+- Do not configure any setting, but click on ```JSON``` on the top 
 
 .. figure:: _picture/importjson.png
 
