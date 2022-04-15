@@ -40,6 +40,7 @@ Create the workload
 
 - Overwrite the JSON blob by the one `here <https://github.com/nergalex/f5-log-converter/blob/master/workload.json>` and DOP NOT APPLY YET
 - Before applying, change the `namespace` value on line 4. Put the NameSpace where the app is running.
+- By default the Workload will be deployed in Paris RE. If you prefer another RE, please change the setting line 76.
 - Click `Save and Exit`
 
 Modify the workload config to push logs to the right destination
@@ -53,8 +54,50 @@ Modify the workload config to push logs to the right destination
 
 .. figure:: _picture/edit2.png
 
+- Modifie the JSON according your environment
+- To do so, click on JSON and clear inputs (click YES). Modify the `declaration.json` file below with
+  - API Key
+  - Tenant name
+  - Namespace
+  - Syslog server IP/fqdn
+  - Syslog port
 
+.. code:: json
 
+    {
+        "f5xc_tenant": {
+            "api_key": "your_f5xc_api_key",
+            "name": "your_tenant_name",
+            "namespaces": [
+                {
+                    "event_filter": {
+                        "sec_event_type": "waf_sec_event"
+                    },
+                    "name": "app_namespace"
+                }
+            ]
+        },
+        "logcollector": {
+            "syslog": [
+                {
+                    "ip_address": "syslog_ip",
+                    "port": 5044
+                }
+            ]
+        }
+    }
+
+.. figure:: _picture/declaration.png
+
+- Apply, Apply .... Save and Exit
+
+Restart the workload to apply changes
+*************************************
+
+- Click in `Pods`
+- Delete the pods so a new pod is started with the new configuration
+
+.. figure:: _picture/pods.png
 
 Customer Edge | Container hosted in a VM/docker
 ==================================================
