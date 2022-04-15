@@ -33,29 +33,29 @@ Create the workload
 *******************
 
 - Create a vK8S in your namespace
-- In Workloads, create a new vK8S ```workload```
-- Do not configure any setting, but click on ```JSON``` on the top 
+- In Workloads, create a new vK8S ``workload``
+- Do not configure any setting, but click on ``JSON`` on the top 
 
 .. figure:: _picture/importjson.png
 
-- Overwrite the JSON blob by the one `here <https://github.com/nergalex/f5-log-converter/blob/master/workload.json>` and DOP NOT APPLY YET
-- Before applying, change the `namespace` value on line 4. Put the NameSpace where the app is running.
-- By default the Workload will be deployed in Paris RE. If you prefer another RE, please change the setting line 76.
-- Click `Save and Exit`
+- Overwrite the JSON blob by the one here <https://github.com/nergalex/f5-log-converter/blob/master/workload.json> and DOP NOT APPLY YET
+- Before applying, change the ``namespace`` value on line 4. Put the NameSpace where the app is running.
+- By default the Workload will be deployed in Paris RE. If you prefer another RE, please change the setting ``line 76``
+- Click ``Save and Exit``
 
 Modify the workload config to push logs to the right destination
 ****************************************************************
 
-- Edit the created workload `logstream-xc2`
+- Edit the created workload ``logstream-xc2``
 
 .. figure:: _picture/edit1.png
 
-- Edit the `File` object
+- Edit the ``File`` object
 
 .. figure:: _picture/edit2.png
 
 - Modifie the JSON according your environment
-- To do so, click on JSON and clear inputs (click YES). Modify the `declaration.json` file below with
+- To do so, click on JSON and clear inputs (click YES). Modify the ``declaration.json`` file below with
   - API Key
   - Tenant name
   - Namespace
@@ -94,7 +94,7 @@ Modify the workload config to push logs to the right destination
 Restart the workload to apply changes
 *************************************
 
-- Click in `Pods`
+- Go to ``Pods`` menu
 - Delete the pods so a new pod is started with the new configuration
 
 .. figure:: _picture/pods.png
