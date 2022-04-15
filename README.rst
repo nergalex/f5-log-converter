@@ -29,6 +29,33 @@ Deployment Guide
 Regional Edge | Container hosted in a F5 XC POP
 ==================================================
 
+Create the workload
+*******************
+
+- Create a vK8S in your namespace
+- In Workloads, create a new vK8S `workload`
+- Do not configure any setting, but click on `JSON` on the top 
+
+.. figure:: _picture/importjson.png
+
+- Overwrite the JSON blob by the one `here <https://github.com/nergalex/f5-log-converter/blob/master/workload.json>` and DOP NOT APPLY YET
+- Before applying, change the `namespace` value on line 4. Put the NameSpace where the app is running.
+- Click `Save and Exit`
+
+Modify the workload config to push logs to the right destination
+****************************************************************
+
+- Edit the created workload `logstream-xc2`
+
+.. figure:: _picture/edit1.png
+
+- Edit the `File` object
+
+.. figure:: _picture/edit2.png
+
+
+
+
 Customer Edge | Container hosted in a VM/docker
 ==================================================
 

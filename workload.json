@@ -1,0 +1,108 @@
+{
+    "metadata": {
+      "name": "logstream-xc2",
+      "namespace": "demo-app-waap",
+      "labels": {},
+      "annotations": {
+        "ves.io/app": "logstream-xc"
+      },
+      "description": "Unit dynamic App",
+      "disable": null
+    },
+    "spec": {
+      "service": {
+        "num_replicas": 1,
+        "containers": [
+          {
+            "name": "logstream-xc",
+            "image": {
+              "name": "registry.gitlab.com/mattdierick/f5xc-log-push:debug",
+              "public": {},
+              "pull_policy": "IMAGE_PULL_POLICY_ALWAYS"
+            },
+            "init_container": null,
+            "flavor": "CONTAINER_FLAVOR_TYPE_TINY",
+            "liveness_check": null,
+            "readiness_check": null,
+            "command": null,
+            "args": null
+          }
+        ],
+        "volumes": [
+          {
+            "name": "unit-logstream-xc",
+            "persistent_volume": {
+              "storage": {
+                "access_mode": "ACCESS_MODE_READ_WRITE_ONCE",
+                "storage_size": 1,
+                "default": {}
+              },
+              "mount": {
+                "mode": "VOLUME_MOUNT_READ_WRITE",
+                "mount_path": "/unit",
+                "sub_path": null
+              }
+            }
+          }
+        ],
+        "configuration": {
+          "parameters": [
+            {
+              "file": {
+                "name": "declaration.json",
+                "data": "string:///eyJmNXhjX3RlbmFudCI6eyJhcGlfa2V5IjoiVFBFNjQzdThDWDZRTlQrSUFaejVTTEFHRGVZPSIsIm5hbWUiOiJmNS1lbWVhLWVudCIsIm5hbWVzcGFjZXMiOlt7ImV2ZW50X2ZpbHRlciI6eyJzZWNfZXZlbnRfdHlwZSI6IndhZl9zZWNfZXZlbnQifSwibmFtZSI6ImRlbW8tYXBwLXdhYXAifV19LCJsb2djb2xsZWN0b3IiOnsic3lzbG9nIjpbeyJpcF9hZGRyZXNzIjoiMjAuMTIzLjEyNS4yMjQiLCJwb3J0Ijo1MDQ1fV19fQ==",
+                "volume_name": "config-logstream-xc",
+                "mount": {
+                  "mode": "VOLUME_MOUNT_READ_WRITE",
+                  "mount_path": "/config",
+                  "sub_path": null
+                }
+              }
+            },
+            {
+              "env_var": {
+                "name": "FAAS_APP_NAME",
+                "value": "logstream-xc"
+              }
+            }
+          ]
+        },
+        "deploy_options": {
+          "deploy_re_sites": {
+            "site": [
+              {
+                "tenant": "ves-io",
+                "namespace": "system",
+                "name": "pa2-par"
+              }
+            ]
+          }
+        },
+        "advertise_options": {
+          "advertise_in_cluster": {
+            "multi_ports": {
+              "ports": [
+                {
+                  "name": "http",
+                  "info": {
+                    "port": 8080,
+                    "protocol": "PROTOCOL_HTTP",
+                    "same_as_port": {}
+                  }
+                },
+                {
+                  "name": "https",
+                  "info": {
+                    "port": 8443,
+                    "protocol": "PROTOCOL_TLS_WITH_SNI",
+                    "same_as_port": {}
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "resource_version": null
+  }
