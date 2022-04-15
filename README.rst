@@ -99,6 +99,8 @@ Restart the workload to apply changes
 
 .. figure:: _picture/pods.png
 
+The Workloadn is now checking logs every 2 minutes, and pushing the logs to your Syslog server.
+
 Customer Edge | Container hosted in a VM/docker
 ==================================================
 
@@ -592,6 +594,11 @@ OUTPUT - Syslog
 ***************************
 
 :kbd:`2022-04-10 23:17:10.000000000 +0000 debug.LogConverter.user.warn: {"host":"LogConverter","ident":"logger","message":"app=sentence-front-managed1.f5dc.dev;bot_classification=;bot_verification_failed=False;browser_type=Chrome;attack_types=[{'name': 'ATTACK_TYPE_CROSS_SITE_SCRIPTING'}];component=/c/;correlation_id=c102667e-dea5-4551-b495-71bf4217a9f6;description=ves-io-http-loadbalancer-sentence-front-managed1;environment=f5-emea-ent-bceuutam;gateway=pa4-par;http.hostname=sentence-front-managed1.f5dc.dev;http.remote_addr=82.66.123.186;http.remote_port=58950;http.request_method=GET;http.response_code=200;http.server_addr=72.19.3.187;http.server_port=0;http.uri=/c/?a=%3Cscript%3Ecat%20/etc/password%3C/script%3E;is_truncated=False;level=info;policy_name=NotAvailable;request=NotAvailable;request_outcome=block;request_outcome_reason=NotAvailable;signature_cves=NotAvailable;signature_ids=['200000091', '200000097', '200000098', '200001475'];signature_names=['200000091, XSS script tag end (Headers)', '200000097, XSS script tag (Headers)', '200000098, XSS script tag (Parameter)', '200001475, XSS script tag end (Parameter) (2)'];sub_violations=NotAvailable;support_id=7d2d785c-0f32-4f4d-8bf1-c2a1032227ed;type=waf_sec_event;version=HTTP/1.1;violation_rating=NotAvailable;violations={};x_forwarded_for_header_value=82.66.123.186;event_host=master-13;event_source=pa4-par;event_sourcetype=kafka;event_time=2022-04-10T21:14:25.855Z"}`
+
+LOGSTASH Config file
+********************
+
+In order to help you to parse the logs with logstash, you can find a logstash config file here : <https://github.com/nergalex/f5-log-converter/blob/master/logstash.conf>
 
 Troubleshooting Guide
 ####################################################
