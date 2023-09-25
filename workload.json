@@ -50,7 +50,7 @@
             {
               "file": {
                 "name": "declaration.json",
-                "data": "string:///eyJmNXhjX3RlbmFudCI6eyJhcGlfa2V5IjoiVFBFNjQzdThDWDZRTlQrSUFaejVTTEFHRGVZPSIsIm5hbWUiOiJmNS1lbWVhLWVudCIsIm5hbWVzcGFjZXMiOlt7ImV2ZW50X2ZpbHRlciI6eyJzZWNfZXZlbnRfdHlwZSI6IndhZl9zZWNfZXZlbnQifSwibmFtZSI6ImRlbW8tYXBwLXdhYXAifV19LCJsb2djb2xsZWN0b3IiOnsic3lzbG9nIjpbeyJpcF9hZGRyZXNzIjoiMjAuMTIzLjEyNS4yMjQiLCJwb3J0Ijo1MDQ1fV19fQ==",
+                "data": "string:///eyJmNXhjX3RlbmFudCI6eyJhcGlfa2V5IjoiWU9VUl9BUElfS0VZIiwibmFtZSI6ImY1LWVtZWEtZW50IiwibmFtZXNwYWNlcyI6W3siZXZlbnRfZmlsdGVyIjp7InNlY19ldmVudF90eXBlIjoid2FmX3NlY19ldmVudCJ9LCJuYW1lIjoiZGVtby1hcHAtd2FhcCJ9XX0sImxvZ2NvbGxlY3RvciI6eyJzeXNsb2ciOlt7ImlwX2FkZHJlc3MiOiIyMC4xMjMuMTI1LjIyNCIsInBvcnQiOjUwNDV9XX19",
                 "volume_name": "config-logstream-xc",
                 "mount": {
                   "mode": "VOLUME_MOUNT_READ_WRITE",
